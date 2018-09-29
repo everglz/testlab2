@@ -6,28 +6,28 @@ pipeline {
         bat 'C:\\Users\\Cleber\\Desktop\\Jenkins\\install.bat'
       }
     }
-    stage('SendMail_Compile') {
+    stage('Compile') {
       parallel {
         stage('SendMail_1') {
           steps {
-            emailext(subject: 'Aprobar Compilacion', body: 'Se requiere Aprobación para la compilación', attachLog: true, to: 'everglz')
+            emailext(subject: 'Aprobar Compilacion', body: 'Se requiere AprobaciÃ³n para la compilaciÃ³n', attachLog: true, to: 'everglz')
           }
         }
-        stage('Aprove') {
+        stage('Aprove_1') {
           steps {
-            input(message: 'Aprobar Compilación', submitter: 'everglz')
+            input(message: 'Aprobar CompilaciÃ³n', submitter: 'everglz')
           }
         }
       }
     }
-    stage('SendMail_Commit') {
+    stage('Commit') {
       parallel {
         stage('SendMail_2') {
           steps {
             emailext(subject: 'Aprobar Commit', attachLog: true, to: 'laugza', body: 'Favor de Aprobar el Commit')
           }
         }
-        stage('Aprove') {
+        stage('Aprove_1') {
           steps {
             input(message: 'Aprobar Commit', submitter: 'laugza')
           }
@@ -39,9 +39,9 @@ pipeline {
         }
       }
     }
-    stage('SendMail_Aproved') {
+    stage('Approved') {
       steps {
-        emailext(subject: 'Aprobado', body: 'Se realizó el Commit a Master', attachLog: true, to: 'everglz', replyTo: 'laugza, ianglz')
+        emailext(subject: 'Aprobado', body: 'Se realizÃ³ el Commit a Master', attachLog: true, to: 'everglz', replyTo: 'laugza, ianglz')
       }
     }
   }
